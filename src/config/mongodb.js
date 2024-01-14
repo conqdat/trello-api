@@ -15,9 +15,11 @@ import { MongoClient, ServerApiVersion } from 'mongodb'
 let trelloDb = null
 
 const mongoClientInstance = new MongoClient(MONGO_URI, {
-  serverApi: ServerApiVersion.v1,
-  strict: true,
-  deprecated: true
+  useNewUrlParser: true, // Add this line
+  useUnifiedTopology: true // Add this line
+  // version: ServerApiVersion.v1,
+  // strict: true,
+  // deprecationErrors: true
 })
 
 export const CONNECT_DB = async () => {
@@ -30,4 +32,8 @@ export const GET_DB = () => {
     throw new Error('GET_DB_ERROR')
   }
   return trelloDb
+}
+
+export const CLOSE_DB = async () => {
+  await mongoClientInstance.close()
 }
