@@ -8,6 +8,7 @@
 import express from 'express'
 import exitHook from 'async-exit-hook'
 import { CONNECT_DB, GET_DB, CLOSE_DB } from '~/config/mongodb'
+import 'dotenv/config'
 
 const START_SERVER = () => {
   const app = express()
@@ -21,7 +22,9 @@ const START_SERVER = () => {
 
   app.listen(port, hostname, () => {
     // eslint-disable-next-line no-console
-    console.log(`Hello Trung Quan Dev, I am running at ${hostname}:${port}/`)
+    console.log(
+      `Hello ${process.env.AUTHOR} Dev, I am running at ${hostname}:${port}/`
+    )
   })
 
   exitHook((signal) => {
