@@ -5,12 +5,12 @@
  */
 // 035uENtaHHBenwsG
 
-const MONGO_URI =
-  'mongodb+srv://trancongdat2117:035uENtaHHBenwsG@cluster0-dattran.f5g38ks.mongodb.net/?retryWrites=true&w=majority'
+const MONGO_URI = env.MONGODB_URI
 
-const DATABASE_NAME = 'trancongdat2117'
+const DATABASE_NAME = env.DATABASE_NAME
 
 import { MongoClient, ServerApiVersion } from 'mongodb'
+import { env } from './environment'
 
 let trelloDb = null
 
