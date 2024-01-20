@@ -1,5 +1,6 @@
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
+import ApiError from '~/utils/ApiError'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
@@ -22,16 +23,8 @@ const createNew = async (req, res, next) => {
   try {
     await correctCondition.validateAsync(req.body, { abortEarly: false }) // abortEarly: false => return all errors
     next() // next() => go to the next middleware to handle the request
-
-    res.status(StatusCodes.CREATED).json({
-      message:
-        'Board API is running normally with GET methods in createNew function.'
-    })
   } catch (error) {
-    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-      errors: error.message
-    })
-    next(error)
+    next(new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, error.message))
   }
 }
 
