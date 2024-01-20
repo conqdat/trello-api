@@ -20,11 +20,10 @@ const createNew = async (req, res, next) => {
   })
 
   try {
-    console.log('req.body', req.body)
     await correctCondition.validateAsync(req.body, { abortEarly: false }) // abortEarly: false => return all errors
-    // next()
+    next() // next() => go to the next middleware to handle the request
 
-    res.status(StatusCodes.OK).json({
+    res.status(StatusCodes.CREATED).json({
       message:
         'Board API is running normally with GET methods in createNew function.'
     })
