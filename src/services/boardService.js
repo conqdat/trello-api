@@ -1,4 +1,5 @@
 import { slugify } from '~/utils/fommatter'
+import { boardModel } from '~/models/boardModel'
 
 const createNew = async (reqBody) => {
   try {
@@ -6,7 +7,10 @@ const createNew = async (reqBody) => {
       ...reqBody,
       slug: slugify(reqBody.title)
     }
-    return newBoard
+
+    const result = await boardModel.createNew(newBoard)
+
+    return await boardModel.findOneById(result.insertedId)
   } catch (error) {
     throw Error(error)
   }
